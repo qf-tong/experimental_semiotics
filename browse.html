@@ -546,8 +546,23 @@ async function init() {
       '<div class="empty-state">Could not load es_data.json — ' + e.message + '</div>';
     return;
   }
+  // Read URL params and activate filters: ?filter=modality:visual&filter=topic:iconicity
+  const params = new URLSearchParams(window.location.search);
+  params.getAll('filter').forEach(val => {
+    const [dim, v] = val.split(':');
+    if (activeFilters[dim] !== undefined) activeFilters[dim].add(v);
+  });
+
   renderChips();
   renderEntries();
+
+  // If any filters active from URL, scroll down to entries
+  const hasURLFilters = params.getAll('filter').length > 0;
+  if (hasURLFilters) {
+    setTimeout(() => {
+      document.getElementById('entriesContainer').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
 }
 init();
 </script>
