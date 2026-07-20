@@ -14,7 +14,7 @@
       "volume": "6(8)",
       "pages": "477–493",
       "doi": "10.1002/lnc3.351",
-      "modality": ["visual", "gestural", "auditory"],
+      "modality": null,
       "method": ["review"],
       "articulator": null,
       "topic": ["iconicity", "systematicity", "compositionality", "combinatoriality"],
@@ -29,7 +29,7 @@
       "venue": "The Routledge Handbook of Semiosis and the Brain",
       "pages": "66–81",
       "doi": "10.31234/osf.io/xn9yq",
-      "modality": ["visual", "gestural", "auditory"],
+      "modality": null,
       "method": ["review"],
       "articulator": null,
       "topic": ["iconicity", "systematicity", "combinatoriality"],
@@ -45,7 +45,7 @@
       "volume": "22",
       "pages": "243–262",
       "doi": "10.1075/pc.22.2.05fay",
-      "modality": ["visual", "gestural", "auditory"],
+      "modality": null,
       "method": ["review"],
       "articulator": null,
       "topic": ["iconicity", "conventionalization"],
@@ -95,8 +95,8 @@
       "doi": "10.1080/03640210701703659",
       "modality": ["visual"],
       "method": ["interactive communication"],
-      "articulator": ["hands/human body parts", "artificial"],
-      "topic": ["iconicity", "conventionalization", "systematicity"],
+      "articulator": ["artificial"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -112,7 +112,7 @@
       "modality": ["visual"],
       "method": ["interactive communication"],
       "articulator": ["artificial"],
-      "topic": ["compositionality", "conventionalization", "systematicity"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -128,7 +128,7 @@
       "modality": ["visual"],
       "method": ["interactive communication"],
       "articulator": ["artificial"],
-      "topic": ["iconicity", "conventionalization", "systematicity"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -144,7 +144,7 @@
       "modality": ["visual"],
       "method": ["interactive communication"],
       "articulator": ["artificial"],
-      "topic": ["iconicity", "conventionalization", "systematicity"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -160,7 +160,7 @@
       "modality": ["visual"],
       "method": ["interactive communication", "iterated learning"],
       "articulator": ["artificial"],
-      "topic": ["iconicity", "conventionalization", "systematicity"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -176,7 +176,7 @@
       "modality": ["visual"],
       "method": ["iterated learning", "interactive communication"],
       "articulator": ["artificial"],
-      "topic": ["iconicity", "conventionalization", "systematicity"],
+      "topic": ["iconicity", "conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -192,7 +192,7 @@
       "modality": ["visual"],
       "method": ["interactive communication"],
       "articulator": ["artificial"],
-      "topic": ["conventionalization", "systematicity"],
+      "topic": ["conventionalization"],
       "material": ["drawing pad", "English nouns/concepts"]
     },
     {
@@ -208,7 +208,7 @@
       "modality": ["visual"],
       "method": ["iterated learning"],
       "articulator": ["artificial"],
-      "topic": ["conventionalization", "systematicity"],
+      "topic": ["conventionalization"],
       "material": ["drawing pad", "simple shapes/images"]
     },
     {
@@ -218,9 +218,9 @@
       "year": 2010,
       "title": "Systematicity and Arbitrariness in Novel Communication Systems",
       "venue": "Interaction Studies",
-      "volume": null,
-      "pages": null,
-      "doi": null,
+      "volume": 11(1),
+      "pages": 14–32,
+      "doi": "doi.org/10.1075/is.11.1.08the",
       "modality": ["visual"],
       "method": ["interactive communication"],
       "articulator": ["artificial"],
@@ -415,7 +415,7 @@
       "doi": "10.1093/jole/lzw005",
       "modality": ["visual", "gestural"],
       "method": ["interactive communication"],
-      "articulator": ["hands/human body parts", "artificial"],
+      "articulator": ["hands/human body parts"],
       "topic": ["conventionalization"],
       "material": ["novel concepts (Kinect motion capture)"]
     },
