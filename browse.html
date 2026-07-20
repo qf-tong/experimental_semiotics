@@ -558,7 +558,10 @@ async function init() {
   // Read URL params and activate filters: ?filter=modality:visual&filter=topic:iconicity
   const params = new URLSearchParams(window.location.search);
   params.getAll('filter').forEach(val => {
-    const [dim, v] = val.split(':');
+    const colonIdx = val.indexOf(':');
+    if (colonIdx === -1) return;
+    const dim = val.slice(0, colonIdx);
+    const v   = val.slice(colonIdx + 1).replace(/\+/g, ' ');
     if (activeFilters[dim] !== undefined) activeFilters[dim].add(v);
   });
 
@@ -577,3 +580,4 @@ init();
 </script>
 </body>
 </html>
+
