@@ -96,11 +96,33 @@ body {
   margin-bottom: 0.2rem;
 }
 
+.curator-note {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
 .curator-name {
   font-family: 'EB Garamond', serif;
   font-size: 0.95rem;
   color: var(--ink-mid);
 }
+
+.curator-email {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  margin-top: 0.2rem;
+}
+
+.curator-email a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--ink-faint);
+}
+.curator-email a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
 /* ── Col 2: Intro ── */
 .col-intro {}
@@ -276,8 +298,10 @@ body {
     </div>
 
     <div class="curator">
+      <div class="curator-note">Entries missing from this index are welcome. Please contact the curator.</div>
       <div class="curator-label">Curator</div>
       <div class="curator-name">Qingfeng Tong</div>
+      <div class="curator-email"><a href="mailto:qxt360@student.bham.ac.uk">qxt360@student.bham.ac.uk</a></div>
     </div>
   </div>
 
@@ -285,9 +309,9 @@ body {
   <div class="col col-intro">
     <div class="intro-eyebrow">About</div>
     <div class="intro-body">
-      <p>Experimental semiotics is a research program that studies the emergence and evolution of human communication systems under controlled laboratory conditions. Rather than observing existing languages, experimental semioticians ask participants to build communication systems from scratch — using unfamiliar media such as drawing pads, slide whistles, or hand gestures — and trace how structure, iconicity, and convention arise through interaction and transmission.</p>
-      <p>The field sits at the intersection of cognitive science, linguistics, and cultural evolution. Its central questions include: How do iconic signs become conventional symbols? Under what conditions does combinatorial structure emerge? What role do modality and articulator play in shaping the communication systems that evolve?</p>
-      <p>This index collects experimental studies in the field, organized by modality, method, articulator, and topic.</p>
+      <p>Experimental semiotics is a research program that studies the emergence and evolution of human communication systems under controlled laboratory conditions. Rather than observing existing languages, experimental semioticians ask participants to build communication systems from scratch using the vocal tract, hands, and other body parts, or instruments such as drawing pads or slide whistles. These studies track how structure, iconicity, and convention arise through interaction and transmission.</p>
+      <p>The field sits at the intersection of cognitive science, linguistics, and cultural evolution. It informs language origin and evolution, and more specifically, how iconic signs become conventional symbols, under what conditions combinatorial structure emerges, and the role of modality and articulator in shaping the communication systems, etc.</p>
+      <p>This index gathers experimental studies in the field, organized by physical articulator, perceptual modality, transmission paradigm, and topic.</p>
     </div>
   </div>
 
@@ -323,40 +347,38 @@ body {
     <div class="col-head">Browse by</div>
 
     <div class="index-dim">
-      <div class="dim-label">Modality</div>
+      <div class="dim-label">Physical Articulator</div>
+      <div class="dim-links">
+        <a class="index-link hands"      href="browse.html?filter=articulator:hands/human body parts">hands and other body parts</a>
+        <a class="index-link vocal"      href="browse.html?filter=articulator:non-linguistic vocalization">vocal tract</a>
+        <a class="index-link artificial" href="browse.html?filter=articulator:artificial">artificial instruments</a>
+      </div>
+    </div>
+
+    <div class="index-dim">
+      <div class="dim-label">Perceptual Modality</div>
       <div class="dim-links">
         <a class="index-link visual"   href="browse.html?filter=modality:visual">visual</a>
-        <a class="index-link gestural" href="browse.html?filter=modality:gestural">gestural</a>
         <a class="index-link auditory" href="browse.html?filter=modality:auditory">auditory</a>
       </div>
     </div>
 
     <div class="index-dim">
-      <div class="dim-label">Method</div>
+      <div class="dim-label">Transmission Paradigm</div>
       <div class="dim-links">
         <a class="index-link interactive" href="browse.html?filter=method:interactive communication">interactive communication</a>
         <a class="index-link iterated"    href="browse.html?filter=method:iterated learning">iterated learning</a>
-        <a class="index-link review-m"    href="browse.html?filter=method:review">review</a>
-      </div>
-    </div>
-
-    <div class="index-dim">
-      <div class="dim-label">Articulator</div>
-      <div class="dim-links">
-        <a class="index-link hands"      href="browse.html?filter=articulator:hands/human body parts">hands / body</a>
-        <a class="index-link vocal"      href="browse.html?filter=articulator:non-linguistic vocalization">non-linguistic vocalization</a>
-        <a class="index-link artificial" href="browse.html?filter=articulator:artificial">artificial</a>
       </div>
     </div>
 
     <div class="index-dim">
       <div class="dim-label">Topic</div>
       <div class="dim-links">
-        <a class="index-link iconicity"          href="browse.html?filter=topic:iconicity">iconicity</a>
-        <a class="index-link systematicity"      href="browse.html?filter=topic:systematicity">systematicity</a>
-        <a class="index-link combinatoriality"   href="browse.html?filter=topic:combinatoriality">combinatoriality</a>
-        <a class="index-link compositionality"   href="browse.html?filter=topic:compositionality">compositionality</a>
-        <a class="index-link conventionalization" href="browse.html?filter=topic:conventionalization">conventionalization</a>
+        <a class="index-link iconicity"             href="browse.html?filter=topic:iconicity">iconicity</a>
+        <a class="index-link systematicity"         href="browse.html?filter=topic:systematicity">systematicity</a>
+        <a class="index-link combinatoriality"      href="browse.html?filter=topic:combinatoriality">combinatoriality</a>
+        <a class="index-link compositionality"      href="browse.html?filter=topic:compositionality">compositionality</a>
+        <a class="index-link conventionalization"   href="browse.html?filter=topic:conventionalization">conventionalization</a>
       </div>
     </div>
 
@@ -370,3 +392,4 @@ body {
 
 </body>
 </html>
+
