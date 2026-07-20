@@ -322,15 +322,15 @@
 
   <div class="filter-panel" id="filterPanel">
     <div class="filter-row">
-      <span class="filter-label">Modality</span>
+      <span class="filter-label">Perceptual Modality</span>
       <div class="chips" id="chips-modality"></div>
     </div>
     <div class="filter-row">
-      <span class="filter-label">Method</span>
+      <span class="filter-label">Transmission Paradigm</span>
       <div class="chips" id="chips-method"></div>
     </div>
     <div class="filter-row">
-      <span class="filter-label">Articulator</span>
+      <span class="filter-label">Physical Articulator</span>
       <div class="chips" id="chips-articulator"></div>
     </div>
     <div class="filter-row">
@@ -381,10 +381,15 @@ function buildVocab() {
 function renderChips() {
   const vocab = buildVocab();
   const dimOrder = {
-    modality:    ['visual','gestural','auditory'],
-    method:      ['interactive communication','iterated learning','review'],
+    modality:    ['visual','auditory'],
+    method:      ['interactive communication','iterated learning'],
     articulator: ['hands/human body parts','non-linguistic vocalization','artificial'],
     topic:       ['iconicity','systematicity','combinatoriality','compositionality','conventionalization']
+  };
+  const dimDisplayLabels = {
+    'hands/human body parts': 'hands and other body parts',
+    'non-linguistic vocalization': 'vocal tract',
+    'artificial': 'artificial instruments'
   };
   Object.keys(dimOrder).forEach(dim => {
     const container = document.getElementById(`chips-${dim}`);
@@ -395,7 +400,7 @@ function renderChips() {
       chip.className = 'chip';
       chip.dataset.dim = dim;
       chip.dataset.val = val;
-      chip.textContent = val;
+      chip.textContent = (dim === 'articulator' && dimDisplayLabels[val]) ? dimDisplayLabels[val] : val;
       chip.addEventListener('click', () => toggleFilter(dim, val, chip));
       container.appendChild(chip);
     });
@@ -509,7 +514,11 @@ function renderEntries() {
       tags.className = 'entry-tags';
       ['modality','articulator','method','topic'].forEach(dim => {
         if (Array.isArray(e[dim])) {
-          e[dim].forEach(v => tags.appendChild(makeTag(dim, v)));
+          e[dim].forEach(v => {
+            const t = makeTag(dim, v);
+            if (dim === 'articulator' && dimDisplayLabels[v]) t.textContent = dimDisplayLabels[v];
+            tags.appendChild(t);
+          });
         } else if (e[dim] === null && (dim === 'modality' || dim === 'articulator')) {
           const span = document.createElement('span');
           span.className = 'tag tag-null';
@@ -568,3 +577,4 @@ init();
 </script>
 </body>
 </html>
+
