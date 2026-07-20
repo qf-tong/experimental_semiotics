@@ -366,6 +366,12 @@ const activeFilters = {
   topic: new Set()
 };
 
+const dimDisplayLabels = {
+  'hands/human body parts':      'hands and other body parts',
+  'non-linguistic vocalization':  'vocal tract',
+  'artificial':                   'artificial instruments'
+};
+
 // ── Build chip vocabulary from data
 function buildVocab() {
   const vocab = { modality: new Set(), method: new Set(), articulator: new Set(), topic: new Set() };
@@ -386,11 +392,7 @@ function renderChips() {
     articulator: ['hands/human body parts','non-linguistic vocalization','artificial'],
     topic:       ['iconicity','systematicity','combinatoriality','compositionality','conventionalization']
   };
-  const dimDisplayLabels = {
-    'hands/human body parts': 'hands and other body parts',
-    'non-linguistic vocalization': 'vocal tract',
-    'artificial': 'artificial instruments'
-  };
+
   Object.keys(dimOrder).forEach(dim => {
     const container = document.getElementById(`chips-${dim}`);
     container.innerHTML = '';
@@ -580,4 +582,5 @@ init();
 </script>
 </body>
 </html>
+
 
