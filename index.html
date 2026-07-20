@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experimental Semiotics</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:        #F7F6F2;
+  --ink:       #1A1A18;
+  --ink-mid:   #5C5C54;
+  --ink-faint: #9A9A8E;
+  --rule:      #D8D7D0;
+
+  --t-visual:    #E8EFF5;  --t-visual-ink:    #2A4A66;
+  --t-gestural:  #EAF0E8;  --t-gestural-ink:  #2A4F28;
+  --t-auditory:  #F0EBE8;  --t-auditory-ink:  #5C3020;
+  --t-interact:  #F5F0E8;  --t-interact-ink:  #5C4A18;
+  --t-iterated:  #EEE8F5;  --t-iterated-ink:  #3A2A5C;
+  --t-review:    #EDEDED;  --t-review-ink:    #444;
+  --t-icon:      #F5EAF0;  --t-icon-ink:      #5C2A4A;
+  --t-sys:       #E8F5F0;  --t-sys-ink:       #1A4A3A;
+  --t-combo:     #F5F0E8;  --t-combo-ink:     #5C4A18;
+  --t-comp:      #EAE8F5;  --t-comp-ink:      #2A285C;
+  --t-conv:      #F0F5E8;  --t-conv-ink:      #3A4F18;
+  --t-hands:     #EFF5F0;  --t-hands-ink:     #1F4A2A;
+  --t-vocal:     #F5EFED;  --t-vocal-ink:     #5C2820;
+  --t-artif:     #EDEEF5;  --t-artif-ink:     #2A2C5C;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── Four-column grid ── */
+.landing {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.4fr 1.4fr;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+  border-top: 2px solid var(--ink);
+}
+
+.col {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.col:last-child { border-right: none; }
+
+/* ── Col 1: Title ── */
+.col-title {
+  justify-content: space-between;
+}
+
+.site-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.site-title em {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--ink-mid);
+  margin-top: 0.2rem;
+}
+
+.curator {
+  margin-top: auto;
+}
+
+.curator-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+}
+
+.curator-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--ink-mid);
+}
+
+/* ── Col 2: Intro ── */
+.col-intro {}
+
+.intro-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+
+.intro-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.intro-body p + p {
+  margin-top: 1em;
+}
+
+.intro-body p:last-child {
+  margin-top: 1.5em;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+/* ── Col 3: Reviews ── */
+.col-reviews {}
+
+.col-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.review-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.review-item {}
+
+.review-authors {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  margin-bottom: 0.15rem;
+}
+
+.review-title {
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.review-title a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+.review-title a:hover { border-bottom-color: var(--ink); }
+
+.review-venue {
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  margin-top: 0.15rem;
+}
+
+/* ── Col 4: Index ── */
+.col-index {}
+
+.index-dim {
+  margin-bottom: 1.6rem;
+}
+
+.dim-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.dim-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.index-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-decoration: none;
+  padding: 0.2rem 0.45rem;
+  border-radius: 2px;
+  display: inline-block;
+  width: fit-content;
+  transition: opacity 0.1s;
+  letter-spacing: 0.01em;
+}
+.index-link:hover { opacity: 0.75; }
+
+/* link colors matching the tag system */
+.index-link.visual    { background: var(--t-visual);   color: var(--t-visual-ink); }
+.index-link.gestural  { background: var(--t-gestural); color: var(--t-gestural-ink); }
+.index-link.auditory  { background: var(--t-auditory); color: var(--t-auditory-ink); }
+.index-link.interactive { background: var(--t-interact); color: var(--t-interact-ink); }
+.index-link.iterated  { background: var(--t-iterated); color: var(--t-iterated-ink); }
+.index-link.review-m  { background: var(--t-review);   color: var(--t-review-ink); }
+.index-link.hands     { background: var(--t-hands);    color: var(--t-hands-ink); }
+.index-link.vocal     { background: var(--t-vocal);    color: var(--t-vocal-ink); }
+.index-link.artificial{ background: var(--t-artif);    color: var(--t-artif-ink); }
+.index-link.iconicity     { background: var(--t-icon);  color: var(--t-icon-ink); }
+.index-link.systematicity { background: var(--t-sys);   color: var(--t-sys-ink); }
+.index-link.combinatoriality { background: var(--t-combo); color: var(--t-combo-ink); }
+.index-link.compositionality { background: var(--t-comp);  color: var(--t-comp-ink); }
+.index-link.conventionalization { background: var(--t-conv); color: var(--t-conv-ink); }
+
+.browse-all {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.browse-all a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+}
+.browse-all a:hover { color: var(--ink-mid); border-bottom-color: var(--ink-mid); }
+
+/* ── Responsive: stack on narrow screens ── */
+@media (max-width: 800px) {
+  .landing {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: auto;
+  }
+  .col {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    min-height: auto;
+  }
+  .col:last-child { border-bottom: none; }
+  .curator { margin-top: 2rem; }
+  .browse-all { margin-top: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="landing">
+
+  <!-- Col 1: Title + Curator -->
+  <div class="col col-title">
+    <div class="site-title">
+      Experimental<br>Semiotics
+      <em>Research Index</em>
+    </div>
+
+    <div class="curator">
+      <div class="curator-label">Curator</div>
+      <div class="curator-name">Qingfeng Tong</div>
+    </div>
+  </div>
+
+  <!-- Col 2: Intro -->
+  <div class="col col-intro">
+    <div class="intro-eyebrow">About</div>
+    <div class="intro-body">
+      <p>Experimental semiotics is a research program that studies the emergence and evolution of human communication systems under controlled laboratory conditions. Rather than observing existing languages, experimental semioticians ask participants to build communication systems from scratch — using unfamiliar media such as drawing pads, slide whistles, or hand gestures — and trace how structure, iconicity, and convention arise through interaction and transmission.</p>
+      <p>The field sits at the intersection of cognitive science, linguistics, and cultural evolution. Its central questions include: How do iconic signs become conventional symbols? Under what conditions does combinatorial structure emerge? What role do modality and articulator play in shaping the communication systems that evolve?</p>
+      <p>This index collects experimental studies in the field, organized by modality, method, articulator, and topic.</p>
+    </div>
+  </div>
+
+  <!-- Col 3: Reviews -->
+  <div class="col col-reviews">
+    <div class="col-head">Reviews &amp; Overviews</div>
+    <ul class="review-list">
+      <li class="review-item">
+        <div class="review-authors">Galantucci, Garrod &amp; Roberts · 2012</div>
+        <div class="review-title"><a href="https://doi.org/10.1002/lnc3.351" target="_blank" rel="noopener">Experimental Semiotics</a></div>
+        <div class="review-venue">Language and Linguistics Compass</div>
+      </li>
+      <li class="review-item">
+        <div class="review-authors">Fay, Ellison &amp; Garrod · 2014</div>
+        <div class="review-title"><a href="https://doi.org/10.1075/pc.22.2.05fay" target="_blank" rel="noopener">Iconicity: From Sign to System in Human Communication and Language</a></div>
+        <div class="review-venue">Pragmatics &amp; Cognition</div>
+      </li>
+      <li class="review-item">
+        <div class="review-authors">Hawkins, Goodman &amp; Goldstone · 2019</div>
+        <div class="review-title"><a href="https://doi.org/10.1016/j.tics.2018.11.003" target="_blank" rel="noopener">The Emergence of Social Norms and Conventions</a></div>
+        <div class="review-venue">Trends in Cognitive Sciences</div>
+      </li>
+      <li class="review-item">
+        <div class="review-authors">Nölle &amp; Galantucci · 2022</div>
+        <div class="review-title"><a href="https://doi.org/10.31234/osf.io/xn9yq" target="_blank" rel="noopener">Experimental Semiotics: Past, Present, and Future</a></div>
+        <div class="review-venue">Routledge Handbook of Semiosis and the Brain</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Col 4: Index -->
+  <div class="col col-index">
+    <div class="col-head">Browse by</div>
+
+    <div class="index-dim">
+      <div class="dim-label">Modality</div>
+      <div class="dim-links">
+        <a class="index-link visual"   href="browse.html?filter=modality:visual">visual</a>
+        <a class="index-link gestural" href="browse.html?filter=modality:gestural">gestural</a>
+        <a class="index-link auditory" href="browse.html?filter=modality:auditory">auditory</a>
+      </div>
+    </div>
+
+    <div class="index-dim">
+      <div class="dim-label">Method</div>
+      <div class="dim-links">
+        <a class="index-link interactive" href="browse.html?filter=method:interactive communication">interactive communication</a>
+        <a class="index-link iterated"    href="browse.html?filter=method:iterated learning">iterated learning</a>
+        <a class="index-link review-m"    href="browse.html?filter=method:review">review</a>
+      </div>
+    </div>
+
+    <div class="index-dim">
+      <div class="dim-label">Articulator</div>
+      <div class="dim-links">
+        <a class="index-link hands"      href="browse.html?filter=articulator:hands/human body parts">hands / body</a>
+        <a class="index-link vocal"      href="browse.html?filter=articulator:non-linguistic vocalization">non-linguistic vocalization</a>
+        <a class="index-link artificial" href="browse.html?filter=articulator:artificial">artificial</a>
+      </div>
+    </div>
+
+    <div class="index-dim">
+      <div class="dim-label">Topic</div>
+      <div class="dim-links">
+        <a class="index-link iconicity"          href="browse.html?filter=topic:iconicity">iconicity</a>
+        <a class="index-link systematicity"      href="browse.html?filter=topic:systematicity">systematicity</a>
+        <a class="index-link combinatoriality"   href="browse.html?filter=topic:combinatoriality">combinatoriality</a>
+        <a class="index-link compositionality"   href="browse.html?filter=topic:compositionality">compositionality</a>
+        <a class="index-link conventionalization" href="browse.html?filter=topic:conventionalization">conventionalization</a>
+      </div>
+    </div>
+
+    <div class="browse-all">
+      <a href="browse.html">browse all entries →</a>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
