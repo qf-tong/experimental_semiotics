@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experimental Semiotics — Research Index</title>
+<style>
+  /* ── Typefaces ── */
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  /* ── Palette ── */
+  :root {
+    --bg:        #F7F6F2;
+    --surface:   #FFFFFF;
+    --ink:       #1A1A18;
+    --ink-mid:   #5C5C54;
+    --ink-faint: #9A9A8E;
+    --rule:      #D8D7D0;
+
+    /* tag tints — low-sat, each distinct */
+    --t-visual:    #E8EFF5;   --t-visual-ink:    #2A4A66;
+    --t-gestural:  #EAF0E8;   --t-gestural-ink:  #2A4F28;
+    --t-auditory:  #F0EBE8;   --t-auditory-ink:  #5C3020;
+
+    --t-interact:  #F5F0E8;   --t-interact-ink:  #5C4A18;
+    --t-iterated:  #EEE8F5;   --t-iterated-ink:  #3A2A5C;
+
+    --t-icon:      #F5EAF0;   --t-icon-ink:      #5C2A4A;
+    --t-sys:       #E8F5F0;   --t-sys-ink:       #1A4A3A;
+    --t-combo:     #F5F0E8;   --t-combo-ink:     #5C4A18;
+    --t-comp:      #EAE8F5;   --t-comp-ink:      #2A285C;
+    --t-conv:      #F0F5E8;   --t-conv-ink:      #3A4F18;
+    --t-review:    #EDEDED;   --t-review-ink:    #444;
+
+    --t-hands:     #EFF5F0;   --t-hands-ink:     #1F4A2A;
+    --t-vocal:     #F5EFED;   --t-vocal-ink:     #5C2820;
+    --t-artif:     #EDEEF5;   --t-artif-ink:     #2A2C5C;
+
+    --active-ul: 1.5px solid var(--ink);
+
+    font-size: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .page-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--rule);
+    padding: 3rem 0 2rem;
+    margin-bottom: 2.5rem;
+  }
+  header h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+  header .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Filter panel ── */
+  .filter-panel {
+    margin-bottom: 2.5rem;
+  }
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+  .filter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-width: 5.5rem;
+    padding-top: 0.1rem;
+    flex-shrink: 0;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  /* chip base */
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    letter-spacing: 0.02em;
+    padding: 0.18rem 0.55rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.1s;
+    white-space: nowrap;
+  }
+  .chip:hover { opacity: 0.8; }
+
+  /* inactive chips: show tint */
+  .chip[data-dim="modality"][data-val="visual"]    { background: var(--t-visual);   color: var(--t-visual-ink);    border-color: #c8d8e5; }
+  .chip[data-dim="modality"][data-val="gestural"]  { background: var(--t-gestural); color: var(--t-gestural-ink);  border-color: #c0d4bc; }
+  .chip[data-dim="modality"][data-val="auditory"]  { background: var(--t-auditory); color: var(--t-auditory-ink);  border-color: #d4c0b8; }
+
+  .chip[data-dim="method"][data-val="interactive communication"] { background: var(--t-interact); color: var(--t-interact-ink); border-color: #d4c4a0; }
+  .chip[data-dim="method"][data-val="iterated learning"]        { background: var(--t-iterated); color: var(--t-iterated-ink); border-color: #c8c0d8; }
+  .chip[data-dim="method"][data-val="review"]                   { background: var(--t-review);   color: var(--t-review-ink);   border-color: #ccc; }
+
+  .chip[data-dim="topic"][data-val="iconicity"]         { background: var(--t-icon);  color: var(--t-icon-ink);  border-color: #d8b8cc; }
+  .chip[data-dim="topic"][data-val="systematicity"]     { background: var(--t-sys);   color: var(--t-sys-ink);   border-color: #a8d0c0; }
+  .chip[data-dim="topic"][data-val="combinatoriality"]  { background: var(--t-combo); color: var(--t-combo-ink); border-color: #d4c4a0; }
+  .chip[data-dim="topic"][data-val="compositionality"]  { background: var(--t-comp);  color: var(--t-comp-ink);  border-color: #c0c0d8; }
+  .chip[data-dim="topic"][data-val="conventionalization"]{ background: var(--t-conv); color: var(--t-conv-ink);  border-color: #c0d0a0; }
+
+  .chip[data-dim="articulator"][data-val="hands/human body parts"]   { background: var(--t-hands); color: var(--t-hands-ink); border-color: #a8d0b0; }
+  .chip[data-dim="articulator"][data-val="non-linguistic vocalization"]{ background: var(--t-vocal); color: var(--t-vocal-ink); border-color: #d0a8a0; }
+  .chip[data-dim="articulator"][data-val="artificial"]                { background: var(--t-artif); color: var(--t-artif-ink); border-color: #b8c0d8; }
+
+  /* active state: underline, slightly darker */
+  .chip.active {
+    border-bottom: var(--active-ul) !important;
+    font-weight: 500;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clear-btn {
+    background: none;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    color: var(--ink-faint);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .clear-btn:hover { color: var(--ink); }
+
+  /* ── Section headings ── */
+  .section-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── Entry card ── */
+  .entry {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+  .entry:last-child { border-bottom: none; }
+
+  .entry-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.01em;
+  }
+  .entry-authors {
+    color: var(--ink-mid);
+  }
+  .entry-year {
+    color: var(--ink-faint);
+  }
+
+  .entry-title {
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.35;
+    margin: 0.1rem 0 0.3rem;
+  }
+  .entry-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .entry-title a:hover {
+    border-bottom-color: var(--ink);
+  }
+
+  .entry-venue {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+  }
+
+  .entry-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.45rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* tag colors matching chips */
+  .tag[data-dim="modality"][data-val="visual"]    { background: var(--t-visual);   color: var(--t-visual-ink); }
+  .tag[data-dim="modality"][data-val="gestural"]  { background: var(--t-gestural); color: var(--t-gestural-ink); }
+  .tag[data-dim="modality"][data-val="auditory"]  { background: var(--t-auditory); color: var(--t-auditory-ink); }
+
+  .tag[data-dim="method"][data-val="interactive communication"] { background: var(--t-interact); color: var(--t-interact-ink); }
+  .tag[data-dim="method"][data-val="iterated learning"]        { background: var(--t-iterated); color: var(--t-iterated-ink); }
+  .tag[data-dim="method"][data-val="review"]                   { background: var(--t-review);   color: var(--t-review-ink); }
+
+  .tag[data-dim="topic"][data-val="iconicity"]          { background: var(--t-icon);  color: var(--t-icon-ink); }
+  .tag[data-dim="topic"][data-val="systematicity"]      { background: var(--t-sys);   color: var(--t-sys-ink); }
+  .tag[data-dim="topic"][data-val="combinatoriality"]   { background: var(--t-combo); color: var(--t-combo-ink); }
+  .tag[data-dim="topic"][data-val="compositionality"]   { background: var(--t-comp);  color: var(--t-comp-ink); }
+  .tag[data-dim="topic"][data-val="conventionalization"]{ background: var(--t-conv);  color: var(--t-conv-ink); }
+
+  .tag[data-dim="articulator"][data-val="hands/human body parts"]    { background: var(--t-hands); color: var(--t-hands-ink); }
+  .tag[data-dim="articulator"][data-val="non-linguistic vocalization"]{ background: var(--t-vocal); color: var(--t-vocal-ink); }
+  .tag[data-dim="articulator"][data-val="artificial"]                 { background: var(--t-artif); color: var(--t-artif-ink); }
+
+  .tag-null {
+    background: var(--bg);
+    color: var(--ink-faint);
+    border: 1px dashed var(--rule);
+    font-style: italic;
+  }
+
+  /* ── DOI display ── */
+  .entry-doi {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .entry-doi a {
+    color: var(--ink-faint);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+  .entry-doi a:hover { color: var(--ink); }
+
+  /* ── Nothing found ── */
+  .empty-state {
+    padding: 3rem 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem 0 3rem;
+    margin-top: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    line-height: 1.8;
+  }
+  footer .null-note {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <header>
+    <h1>Experimental Semiotics — Research Index</h1>
+    <div class="subtitle">curated index · experimental studies of novel communication systems · updated from .bib</div>
+  </header>
+
+  <div class="filter-panel" id="filterPanel">
+    <div class="filter-row">
+      <span class="filter-label">Modality</span>
+      <div class="chips" id="chips-modality"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Method</span>
+      <div class="chips" id="chips-method"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Articulator</span>
+      <div class="chips" id="chips-articulator"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Topic</span>
+      <div class="chips" id="chips-topic"></div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <span id="statsText"></span>
+    <button class="clear-btn" id="clearBtn" onclick="clearFilters()" style="display:none;">clear filters</button>
+  </div>
+
+  <div id="entriesContainer"></div>
+
+  <footer>
+    <div>Taxonomy annotated from abstracts by curator. Fields marked <span class="null-note">— unverified</span> require manual review.</div>
+    <div style="margin-top:0.4rem;">Filters are conjunctive within dimensions, disjunctive across values within the same dimension.</div>
+  </footer>
+
+</div>
+
+<script>
+// DATA is loaded from es_data.json via fetch (see init() below)
+let DATA = null;
+
+
+// ── Active filters per dimension
+const activeFilters = {
+  modality: new Set(),
+  method: new Set(),
+  articulator: new Set(),
+  topic: new Set()
+};
+
+// ── Build chip vocabulary from data
+function buildVocab() {
+  const vocab = { modality: new Set(), method: new Set(), articulator: new Set(), topic: new Set() };
+  DATA.entries.forEach(e => {
+    ['modality','method','articulator','topic'].forEach(dim => {
+      if (Array.isArray(e[dim])) e[dim].forEach(v => vocab[dim].add(v));
+    });
+  });
+  return vocab;
+}
+
+// ── Render chips
+function renderChips() {
+  const vocab = buildVocab();
+  const dimOrder = {
+    modality:    ['visual','gestural','auditory'],
+    method:      ['interactive communication','iterated learning','review'],
+    articulator: ['hands/human body parts','non-linguistic vocalization','artificial'],
+    topic:       ['iconicity','systematicity','combinatoriality','compositionality','conventionalization']
+  };
+  Object.keys(dimOrder).forEach(dim => {
+    const container = document.getElementById(`chips-${dim}`);
+    container.innerHTML = '';
+    dimOrder[dim].forEach(val => {
+      if (!vocab[dim].has(val)) return;
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.dataset.dim = dim;
+      chip.dataset.val = val;
+      chip.textContent = val;
+      chip.addEventListener('click', () => toggleFilter(dim, val, chip));
+      container.appendChild(chip);
+    });
+  });
+}
+
+function toggleFilter(dim, val, chip) {
+  if (activeFilters[dim].has(val)) {
+    activeFilters[dim].delete(val);
+    chip.classList.remove('active');
+  } else {
+    activeFilters[dim].add(val);
+    chip.classList.add('active');
+  }
+  renderEntries();
+}
+
+function clearFilters() {
+  Object.keys(activeFilters).forEach(dim => activeFilters[dim].clear());
+  document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  renderEntries();
+}
+
+// ── Filter logic: conjunctive across dimensions, disjunctive within
+function matchesFilters(entry) {
+  return ['modality','method','articulator','topic'].every(dim => {
+    if (activeFilters[dim].size === 0) return true;
+    if (!entry[dim]) return false;
+    return [...activeFilters[dim]].some(v => entry[dim].includes(v));
+  });
+}
+
+// ── Format authors
+function formatAuthors(authors) {
+  if (!authors || authors.length === 0) return '';
+  if (authors.length === 1) return authors[0];
+  if (authors.length === 2) return authors.join(' & ');
+  return authors[0] + ' et al.';
+}
+
+// ── Render tag element
+function makeTag(dim, val) {
+  const span = document.createElement('span');
+  span.className = 'tag';
+  span.dataset.dim = dim;
+  span.dataset.val = val;
+  span.textContent = val;
+  return span;
+}
+
+// ── Render entries
+function renderEntries() {
+  const container = document.getElementById('entriesContainer');
+  const statsText = document.getElementById('statsText');
+  const clearBtn = document.getElementById('clearBtn');
+
+  const filtered = DATA.entries.filter(matchesFilters);
+  const reviews  = filtered.filter(e => e.type === 'review');
+  const expts    = filtered.filter(e => e.type === 'experiment');
+
+  const hasFilters = Object.values(activeFilters).some(s => s.size > 0);
+  clearBtn.style.display = hasFilters ? 'inline' : 'none';
+  statsText.textContent = `${filtered.length} of ${DATA.entries.length} entries`;
+
+  container.innerHTML = '';
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state">no entries match the selected filters</div>';
+    return;
+  }
+
+  function renderGroup(entries, label) {
+    if (entries.length === 0) return;
+    const head = document.createElement('div');
+    head.className = 'section-head';
+    head.textContent = label + ` — ${entries.length}`;
+    container.appendChild(head);
+
+    // sort by year desc
+    [...entries].sort((a,b) => b.year - a.year).forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'entry';
+
+      // meta line
+      const meta = document.createElement('div');
+      meta.className = 'entry-meta';
+      meta.innerHTML = `<span class="entry-authors">${formatAuthors(e.authors)}</span>&ensp;<span class="entry-year">${e.year}</span>`;
+      div.appendChild(meta);
+
+      // title
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'entry-title';
+      if (e.doi) {
+        titleDiv.innerHTML = `<a href="https://doi.org/${e.doi}" target="_blank" rel="noopener">${e.title}</a>`;
+      } else {
+        titleDiv.textContent = e.title;
+      }
+      div.appendChild(titleDiv);
+
+      // venue
+      const venue = document.createElement('div');
+      venue.className = 'entry-venue';
+      let venueStr = e.venue || '';
+      if (e.volume) venueStr += ` ${e.volume}`;
+      if (e.pages) venueStr += `, ${e.pages}`;
+      venue.textContent = venueStr;
+      div.appendChild(venue);
+
+      // tags
+      const tags = document.createElement('div');
+      tags.className = 'entry-tags';
+      ['modality','articulator','method','topic'].forEach(dim => {
+        if (Array.isArray(e[dim])) {
+          e[dim].forEach(v => tags.appendChild(makeTag(dim, v)));
+        } else if (e[dim] === null && (dim === 'modality' || dim === 'articulator')) {
+          const span = document.createElement('span');
+          span.className = 'tag tag-null';
+          span.textContent = `${dim}: —`;
+          tags.appendChild(span);
+        }
+      });
+      div.appendChild(tags);
+
+      // DOI line
+      if (e.doi) {
+        const doiDiv = document.createElement('div');
+        doiDiv.className = 'entry-doi';
+        doiDiv.innerHTML = `doi:<a href="https://doi.org/${e.doi}" target="_blank" rel="noopener">${e.doi}</a>`;
+        div.appendChild(doiDiv);
+      }
+
+      container.appendChild(div);
+    });
+  }
+
+  renderGroup(reviews, 'Reviews & Overviews');
+  renderGroup(expts,   'Experimental Studies');
+}
+
+// ── Init: fetch data then render
+async function init() {
+  try {
+    const resp = await fetch('./es_data.json');
+    if (!resp.ok) throw new Error('fetch failed: ' + resp.status);
+    DATA = await resp.json();
+  } catch(e) {
+    document.getElementById('entriesContainer').innerHTML =
+      '<div class="empty-state">Could not load es_data.json — ' + e.message + '</div>';
+    return;
+  }
+  renderChips();
+  renderEntries();
+}
+init();
+</script>
+</body>
+</html>
